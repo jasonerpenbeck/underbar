@@ -183,7 +183,35 @@ var _ = {};
   // Calls the method named by functionOrKey on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    // Initialize Array
+    if(arguments.length > 2) {
+      var moreArgs = arguments;
+      moreArgs.slice(2);
+    }
+
+    var arr=[];
+
+//    if functionOrKey is a function, it should behave like functionOrKey(collection[i])
+//    if functionOrKey is a method, it should behave like collection[i].functionOrKey
+
+  for(var i=0;i<collection.length;i++) {
+
+      if(typeof functionOrKey === 'function') {
+        arr.push(functionOrKey.apply(collection[i],moreArgs));
+      }
+
+      else {
+        arr.push(collection[i][functionOrKey].apply(collection[i],moreArgs));
+      }
+  }
+
+// Testing passed with the wrong argument in the "args" section of the apply call    
+   return arr;
+
+
   };
+
+
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
