@@ -83,6 +83,7 @@ var _ = {};
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    // Initialize Array
     var arr = [];
 
 // Uses _.each
@@ -123,6 +124,15 @@ var _ = {};
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var arr = [array[0]];
+
+    for(var i=1;i<array.length;i++) {
+        if(arr.indexOf(array[i])===-1) {
+          arr.push(array[i]);
+        }
+
+      }
+    return arr;
   };
 
 
