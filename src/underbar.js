@@ -39,7 +39,7 @@ var _ = {};
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    return n === undefined ? array[array.length -1] : array.slice(Math.max(0,array.length-(n)));    
+    return n === undefined ? array[array.length -1] : array.slice(Math.max(0,array.length-(n)));
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -142,7 +142,7 @@ var _ = {};
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-    
+
     // Initialize Array
     var arr = [];
 
@@ -205,9 +205,8 @@ var _ = {};
       }
   }
 
-// Testing passed with the wrong argument in the "args" section of the apply call    
+// Testing passed with the wrong argument in the "args" section of the apply call
    return arr;
-
 
   };
 
@@ -227,12 +226,34 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+
+    console.log("Arguments: " + arguments.length);
+
+    var collectionArr = [];
+
+//    console.log("isArray: " + Array.isArray(collection));
+
+    Array.isArray(collection) ? collectionArr = collection : _.each(collection,function(element) {
+        collectionArr.push(element);
+      });
+
+    if(arguments.length === 2) {
+      var accumulator = collectionArr[0];
+    }
+
+    for(var i=0;i<collectionArr.length;i++) {
+      accumulator = iterator(accumulator,collectionArr[i]);
+      }
+
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
+
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
+
     return _.reduce(collection, function(wasFound, item) {
       if (wasFound) {
         return true;
