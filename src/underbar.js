@@ -227,7 +227,7 @@ var _ = {};
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
 
-    console.log("Arguments: " + arguments.length);
+  //  console.log("Arguments: " + arguments.length);
 
     var collectionArr = [];
 
@@ -248,6 +248,7 @@ var _ = {};
     return accumulator;
   };
 
+
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
 
@@ -265,13 +266,65 @@ var _ = {};
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+
+
+   /* This works
+    for(var i=0;i<collection.length;i++) {
+
+      if(arguments.length === 1) {
+        if(!collection[i]) {return false;}
+      }
+
+      else {
+        if(!iterator(collection[i])) {return false;}
+        }
+      }
+      return true;
+    */
+
+    var status;
+    var argLength = arguments.length;
+
     // TIP: Try re-using reduce() here.
+    return _.reduce(collection,function(prev, item) {
+
+
+        if(argLength === 1) {
+
+          if(item) {status = true;}
+          else {status = false;}
+        }
+
+        else {
+          if(iterator(item)) {status = true;}
+          else {status = false;}
+        }
+
+        prev = prev && status;
+
+
+        return prev;
+      },true);
+
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    if(arguments.length === 1) {
+      var iterator = _.identity;
+    }
+
+
+    for(var i=0;i<collection.length;i++) {
+      if(iterator(collection[i])) {return true;}
+      }
+
+    return false;
+
     // TIP: There's a very clever way to re-use every() here.
+
   };
 
 
