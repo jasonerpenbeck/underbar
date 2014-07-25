@@ -309,6 +309,20 @@ var _ = {};
 
   };
 
+
+function isFalse(val) {
+  if(!val) {return true;}
+  else {return false;}
+  }
+
+function isEven(val) {
+  return val % 2 ===0;
+  }
+
+console.log(isFalse(isEven(1)));
+console.log(isFalse(isEven(11)));
+console.log(isFalse(isEven(29)));
+
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
@@ -316,14 +330,15 @@ var _ = {};
       var iterator = _.identity;
     }
 
-
+/*
     for(var i=0;i<collection.length;i++) {
       if(iterator(collection[i])) {return true;}
       }
 
     return false;
-
+*/
     // TIP: There's a very clever way to re-use every() here.
+    return _.every(collection,function(item) {return !iterator(item);}) ? false : true;
 
   };
 
