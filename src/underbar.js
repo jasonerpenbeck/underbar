@@ -310,19 +310,6 @@ var _ = {};
   };
 
 
-function isFalse(val) {
-  if(!val) {return true;}
-  else {return false;}
-  }
-
-function isEven(val) {
-  return val % 2 ===0;
-  }
-
-console.log(isFalse(isEven(1)));
-console.log(isFalse(isEven(11)));
-console.log(isFalse(isEven(29)));
-
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
