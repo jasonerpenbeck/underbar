@@ -421,6 +421,14 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // Needed help on this one to figure out how to gain access to arguments of func
+
+    return function(n) {
+      func.memo = func.memo || {};
+      console.log(func.memo);
+      return (n in func.memo) ? func.memo[n] : func.memo[n] = func(n);
+    }
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -430,8 +438,28 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-  };
+    var args = arguments;
+    console.log("Args: " + args);
+    console.log("Args Length: " + args.length);
+    var newFuncArgs = [];
 
+    if(args.length > 2) {
+      console.log(args[2]);
+      newFuncArgs = args.slice(2);
+
+    }
+
+
+
+    console.log(newFuncArgs);
+    return setTimeout(function() {return func.apply(this,newFuncArgs);}, wait);
+    };
+
+
+function randomWholeNum(max) {
+  return Math.floor(Math.random() * max);
+
+}
 
   /**
    * ADVANCED COLLECTION OPERATIONS
@@ -444,6 +472,27 @@ var _ = {};
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var newArr = array;
+
+//    console.log(array);
+
+    _.each(array,function(element,index,array) {
+      var popped = array.splice(i,0);
+      newArr.push(popped);
+    });
+
+//    console.log(newArr);
+/*
+    var newArrLen = newArr.length;
+
+    for(var i=newArrLen;i>0;i--) {
+      var newArrPosition = randomWholeNum(newArr.length);
+      var newArrRemoved = newArr.splice(newArrPosition,0);
+      array.push(newArrRemoved);
+      }
+
+    return array;
+*/
   };
 
 
