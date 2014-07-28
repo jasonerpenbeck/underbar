@@ -424,9 +424,10 @@ var _ = {};
     // Needed help on this one to figure out how to gain access to arguments of func
 
     return function(n) {
+      var arg = arguments[0];
       func.memo = func.memo || {};
       console.log(func.memo);
-      return (n in func.memo) ? func.memo[n] : func.memo[n] = func(n);
+      return (arg in func.memo) ? func.memo[arg] : func.memo[arg] = func(arg);
     }
 
   };
@@ -438,21 +439,17 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-    var args = arguments;
-    console.log("Args: " + args);
-    console.log("Args Length: " + args.length);
-    var newFuncArgs = [];
 
-    if(args.length > 2) {
-      console.log(args[2]);
-      newFuncArgs = args.slice(2);
+    var args = arguments;
+    if (args.length > 2) {
+      var newArgs = [];
+      for(var i=2;i<args.length;i++) {
+        newArgs.push(args[i]);
+      }
 
     }
 
-
-
-    console.log(newFuncArgs);
-    return setTimeout(function() {return func.apply(this,newFuncArgs);}, wait);
+    return setTimeout(function() {return func.apply(this,newArgs);}, wait);
     };
 
 
