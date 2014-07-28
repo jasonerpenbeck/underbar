@@ -485,7 +485,7 @@ var _ = {};
       // Generate random shuffler
       var shuffNum =  Math.floor(Math.random() * newArr.length);
       var newArrRemoved = newArr.splice(shuffNum,1);
-      retArray.push(newArrRemoved[0]);
+      retArray.push(_.first(newArrRemoved));
 
       }
 
