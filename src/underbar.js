@@ -453,10 +453,7 @@ var _ = {};
     };
 
 
-function randomWholeNum(max) {
-  return Math.floor(Math.random() * max);
 
-}
 
   /**
    * ADVANCED COLLECTION OPERATIONS
@@ -469,27 +466,31 @@ function randomWholeNum(max) {
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    var newArr = array;
+    var newArr = [];
 
-//    console.log(array);
-
+    // Create a new Array (newArr) from (array)
     _.each(array,function(element,index,array) {
-      var popped = array.splice(i,0);
-      newArr.push(popped);
+      newArr.push(array[index]);
     });
 
-//    console.log(newArr);
-/*
+    // retArray is the destination array
+    var retArray = [];
+
+    // Determine how long original array is for looping purposes
     var newArrLen = newArr.length;
 
+
     for(var i=newArrLen;i>0;i--) {
-      var newArrPosition = randomWholeNum(newArr.length);
-      var newArrRemoved = newArr.splice(newArrPosition,0);
-      array.push(newArrRemoved);
+
+      // Generate random shuffler
+      var shuffNum =  Math.floor(Math.random() * newArr.length);
+      var newArrRemoved = newArr.splice(shuffNum,1);
+      retArray.push(newArrRemoved[0]);
+
       }
 
-    return array;
-*/
+    return retArray;
+
   };
 
 
