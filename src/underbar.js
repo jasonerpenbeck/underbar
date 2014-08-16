@@ -521,6 +521,7 @@ var _ = {};
 
 
       else {
+
         newArr.push(collection[i].iterator);
       }
 
@@ -540,17 +541,12 @@ var _ = {};
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
     var containerArr = [];
-    console.log(arguments);
-
     var maxArrLen = 0;
-    console.log(maxArrLen);
 
     for(var i=0;i<arguments.length;i++) {
       maxArrLen = Math.max(maxArrLen,arguments[i].length);
 
      }
-
-    console.log(maxArrLen);
 
     for(var i=0;i<maxArrLen;i++) {
        var subArr = [];
@@ -562,7 +558,6 @@ var _ = {};
        containerArr.push(subArr);
      }
 
-     console.log(containerArr);
      return containerArr;
 
   };
@@ -572,6 +567,25 @@ var _ = {};
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+    var flatArr = [];
+
+    function makeFlat(arr) {
+
+      for(var i=0;i<arr.length;i++) {
+      if(Array.isArray(arr[i])) {
+          console.log("This is an array, so I'm going to run makeFlat() on it.");
+          makeFlat(arr[i]);
+        }
+
+      else {
+        console.log("Going to push: " + arr[i]);
+        flatArr.push(arr[i]);
+        }
+      }
+      return flatArr;
+    }
+    return makeFlat(nestedArray);
+
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
