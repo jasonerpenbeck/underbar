@@ -505,6 +505,32 @@ var _ = {};
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+
+
+    console.log("Running sortBy tests.");
+
+    var newArr = [];
+    console.log(arguments);
+    console.log(typeof iterator);
+
+
+    for(var i=0;i<collection.length;i++) {
+      if(typeof iterator === 'function') {
+        newArr.push(iterator(collection[i]));
+        }
+
+
+      else {
+        newArr.push(collection[i].iterator);
+      }
+
+    }
+
+    console.log(newArr.sort());
+    return newArr.sort();
+
+
+
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -513,6 +539,32 @@ var _ = {};
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var containerArr = [];
+    console.log(arguments);
+
+    var maxArrLen = 0;
+    console.log(maxArrLen);
+
+    for(var i=0;i<arguments.length;i++) {
+      maxArrLen = Math.max(maxArrLen,arguments[i].length);
+
+     }
+
+    console.log(maxArrLen);
+
+    for(var i=0;i<maxArrLen;i++) {
+       var subArr = [];
+
+       for(var k=0;k<arguments.length;k++) {
+        subArr.push(arguments[k][i]);
+         }
+
+       containerArr.push(subArr);
+     }
+
+     console.log(containerArr);
+     return containerArr;
+
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -525,11 +577,35 @@ var _ = {};
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+
+      var allArrays = [];
+      for(var h=0;h<arguments.length;h++) {
+        allArrays.push(arguments[h]);
+        }
+
+      for(var i=1;i<allArrays.length;i++) {
+           allArrays[0] =  _.filter(allArrays[0], function(element) {return (_.indexOf(allArrays[i],element) !== -1);});
+        }
+
+      return allArrays[0];
+
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+
+      var allArrays = [];
+      for(var h=0;h<arguments.length;h++) {
+        allArrays.push(arguments[h]);
+        }
+
+      for(var i=1;i<allArrays.length;i++) {
+           allArrays[0] =  _.filter(allArrays[0], function(element) {return (_.indexOf(allArrays[i],element) === -1);});
+        }
+
+      return allArrays[0];
+
   };
 
 
