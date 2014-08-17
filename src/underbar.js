@@ -172,9 +172,7 @@ var _ = {};
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(collection, key) {
-    // TIP: map is really handy when you want to transform an array of
-    // values into a new array of values. _.pluck() is solved for you
-    // as an example of this.
+
     return _.map(collection, function(item){
       return item[key];
     });
@@ -506,33 +504,12 @@ var _ = {};
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
 
-
-    console.log("Running sortBy tests.");
-
-    var newArr = [];
-    console.log(arguments);
-    console.log(typeof iterator);
-
-
-    for(var i=0;i<collection.length;i++) {
-      if(typeof iterator === 'function') {
-        newArr.push(iterator(collection[i]));
-        }
-
-
-      else {
-
-        newArr.push(collection[i].iterator);
-      }
-
-    }
-
-    console.log(newArr.sort());
-    return newArr.sort();
-
-
-
+    return collection.sort(function(a,b) {
+      return (typeof iterator === 'string') ? a[iterator]-b[iterator] : iterator(a) - iterator(b);
+    });
   };
+
+
 
   // Zip together two or more arrays with elements of the same index
   // going together.
@@ -573,12 +550,12 @@ var _ = {};
 
       for(var i=0;i<arr.length;i++) {
       if(Array.isArray(arr[i])) {
-          console.log("This is an array, so I'm going to run makeFlat() on it.");
+//          console.log("This is an array, so I'm going to run makeFlat() on it.");
           makeFlat(arr[i]);
         }
 
       else {
-        console.log("Going to push: " + arr[i]);
+//        console.log("Going to push: " + arr[i]);
         flatArr.push(arr[i]);
         }
       }
